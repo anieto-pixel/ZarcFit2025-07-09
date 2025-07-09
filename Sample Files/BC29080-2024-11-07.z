@@ -1,0 +1,167 @@
+ZPLOT2 ASCII
+  Measured Data, ZPlot:       3.5g
+  Experiment Type:            Sweep Frequency, Control Voltage
+  Date:                       11-07-2024
+  Time:                       14:34:06
+  Open Circuit Potential (V): 0
+  Begin User Comments:        0
+  End User Comments:          0
+  Begin Experiment:           0
+    Potential-DC:             0
+    Potential-DC Type:        1
+    Potential-AC:             1000
+    Potential-Monitor Type:   0
+    Potential-Monitor TargetI:1
+    Potential-Monitor Limit:  3000
+    Potential-Monitor Error:  25
+    Current-DC:               0
+    Current-AC:               0.1
+    Current-Monitor Type:     0
+    Current-Monitor TargetE:  20
+    Current-Monitor Limit:    60
+    Current-Monitor Error:    25
+    vs Freq-Initial:          1000000
+    vs Freq-Final:            0.01
+    vs Freq-Lin/Log Type:     1
+    vs Freq-Linear Type:      1
+    vs Freq-Linear Interval:  100
+    vs Freq-Log Type:         0
+    vs Freq-Log Interval:     5
+    Harmonics:                3
+    PolE-Initial:             0
+    PolE-Final:               0.2
+    PolE-InitialType:         1
+    PolE-FinalType:           1
+    PolE-SweepRate:           1
+    PolE-SweepRateType:       0
+    PolE-DataRate:            5
+    PolE-SegmentNo:           2
+    PolE-IR:                  0
+    AmplE-Initial:            10
+    AmplE-Final:              200
+    AmplE-SweepRate:          1
+    AmplE-DataRate:           5
+    AmplE-SegmentNo:          2
+    PolI-Initial:             0
+    PolI-Vertex:              0.01
+    PolI-Final:               0.01
+    PolI-SweepRate:           0.1
+    PolI-SweepRateType:       0
+    PolI-DataRate:            5
+    PolI-SegmentNo:           2
+    AmplI-Initial:            0.1
+    AmplI-Final:              10
+    AmplI-SweepRate:          0.1
+    AmplI-DataRate:           5
+    AmplI-SegmentNo:          2
+    vs Time-Freq:             1000
+    vs Time-Harmonic:         1
+    vs Time-Total Time:       100
+    vs Time-Time Type:        0
+    vs Time-Interval:         5
+  End Experiment:             0
+  Begin Pstat/Gstat:          1260
+    Booster Type:             0
+    Booster Name:             None
+    Pstat Range High:         0
+    Pstat Range Low:          0
+    Pstat Range Frequency:    5000
+    Pstat Range Minimum:      0
+    Pstat Limit Range:        0
+    Pstat Limit Type:         2
+    Pstat Bandwidth:          2
+    Pstat Use Aux:            0
+    Gstat Range:              0
+    Gstat Bandwidth:          2
+    Filter:                   1
+    Error Beep:               0
+    Bias Rejection:           1
+    Attenuator:               0
+    Grounding:                0
+    Zero Bias:                0
+    Calibration File
+    Nulling-Short File
+    Nulling-Open File
+  End Pstat/Gstat:            1260
+  Begin Analyzer:             1260
+    Z60 Mode:                 2
+    Z60 GD Freq-:             5
+    Z60 GD Freq+:             5
+    Bias Voltage:             0
+    Auto Integration Type:    0
+    Integration Time Type:    0
+    Integration Seconds:      0.2
+    Integration Cycles:       1
+    Delay Time Type:          1
+    Delay Seconds:            0
+    Delay Cycles:             0
+    Source:                   8
+    SourceI:                  0
+    Error Beep:               0
+    Range V1:                 0
+    Coupling V1:              0
+    Input V1:                 1
+    Outer V1:                 1
+    Location V1:              0
+    Range V2:                 0
+    Coupling V2:              0
+    Input V2:                 1
+    Outer V2:                 1
+    Location V2:              0
+    Coupling I:               0
+  End Analyzer:               1260
+  Begin Information:          Cell Information
+    Surface Area:             1
+    Density:                  0
+    Weight:                   0
+    Polarity:                 0
+    PolarityI:                0
+    Corrosion Unit Type:      0
+    Reference Type:           0
+    Reference Potential:      0
+    User-Defined Potential:   0
+    Stern-Geary:              26
+  End Information:            Cell Information
+  Null Configuration:         0,2,0,1,1000000,0.01
+  Data Points:                39
+  Freq(Hz)	Ampl	Bias	Time(Sec)	Z'(a)	Z''(b)	Aux	Err	Range
+End Comments
+1.000000E+06	1.0000E+00	0.0000E+00	2.820000E+00	6.4964E+03	-4.3472E+04	0.0000E+00	0	312
+6.309573E+05	1.0000E+00	0.0000E+00	5.550000E+00	2.8127E+04	-5.4225E+04	0.0000E+00	0	312
+3.981072E+05	1.0000E+00	0.0000E+00	6.490000E+00	5.2222E+04	-5.5709E+04	0.0000E+00	0	312
+2.511886E+05	1.0000E+00	0.0000E+00	7.340000E+00	7.3083E+04	-5.0199E+04	0.0000E+00	0	311
+1.584893E+05	1.0000E+00	0.0000E+00	8.270000E+00	8.8726E+04	-4.1513E+04	0.0000E+00	0	311
+1.000000E+05	1.0000E+00	0.0000E+00	9.250000E+00	9.9583E+04	-3.2393E+04	0.0000E+00	0	311
+6.309573E+04	1.0000E+00	0.0000E+00	1.335000E+01	1.0639E+05	-2.4271E+04	0.0000E+00	0	311
+3.981072E+04	1.0000E+00	0.0000E+00	1.433000E+01	1.1103E+05	-1.7897E+04	0.0000E+00	0	311
+2.511886E+04	1.0000E+00	0.0000E+00	1.526000E+01	1.1395E+05	-1.3111E+04	0.0000E+00	0	311
+1.584893E+04	1.0000E+00	0.0000E+00	1.620000E+01	1.1587E+05	-9.5115E+03	0.0000E+00	0	311
+1.000000E+04	1.0000E+00	0.0000E+00	1.718000E+01	1.1719E+05	-6.9288E+03	0.0000E+00	0	311
+6.309573E+03	1.0000E+00	0.0000E+00	1.813000E+01	1.1811E+05	-5.0893E+03	0.0000E+00	0	311
+3.981072E+03	1.0000E+00	0.0000E+00	1.908000E+01	1.1876E+05	-3.8172E+03	0.0000E+00	0	312
+2.511886E+03	1.0000E+00	0.0000E+00	2.005000E+01	1.1928E+05	-2.9463E+03	0.0000E+00	0	312
+1.584893E+03	1.0000E+00	0.0000E+00	2.112000E+01	1.1967E+05	-2.3417E+03	0.0000E+00	0	312
+1.000000E+03	1.0000E+00	0.0000E+00	2.218000E+01	1.2003E+05	-1.9284E+03	0.0000E+00	0	312
+6.309573E+02	1.0000E+00	0.0000E+00	2.315000E+01	1.2031E+05	-1.6841E+03	0.0000E+00	0	312
+3.981072E+02	1.0000E+00	0.0000E+00	2.420000E+01	1.2060E+05	-1.4866E+03	0.0000E+00	0	312
+2.511886E+02	1.0000E+00	0.0000E+00	2.682000E+01	1.2072E+05	-1.4400E+03	0.0000E+00	0	312
+1.584893E+02	1.0000E+00	0.0000E+00	2.776000E+01	1.2095E+05	-1.3424E+03	0.0000E+00	0	312
+1.000000E+02	1.0000E+00	0.0000E+00	2.874000E+01	1.2117E+05	-1.2502E+03	0.0000E+00	0	312
+6.309573E+01	1.0000E+00	0.0000E+00	2.969000E+01	1.2136E+05	-1.1765E+03	0.0000E+00	0	312
+3.981072E+01	1.0000E+00	0.0000E+00	3.064000E+01	1.2154E+05	-1.1386E+03	0.0000E+00	0	312
+2.511886E+01	1.0000E+00	0.0000E+00	3.172000E+01	1.2175E+05	-1.1202E+03	0.0000E+00	0	312
+1.584893E+01	1.0000E+00	0.0000E+00	3.280000E+01	1.2195E+05	-1.1084E+03	0.0000E+00	0	312
+1.000000E+01	1.0000E+00	0.0000E+00	3.375000E+01	1.2217E+05	-1.1134E+03	0.0000E+00	0	312
+6.309570E+00	1.0000E+00	0.0000E+00	3.496000E+01	1.2239E+05	-1.0907E+03	0.0000E+00	0	312
+3.981070E+00	1.0000E+00	0.0000E+00	3.615000E+01	1.2258E+05	-1.0935E+03	0.0000E+00	0	312
+2.511890E+00	1.0000E+00	0.0000E+00	3.736000E+01	1.2278E+05	-1.0722E+03	0.0000E+00	0	312
+1.584890E+00	1.0000E+00	0.0000E+00	3.891000E+01	1.2296E+05	-1.0508E+03	0.0000E+00	0	312
+1.000000E+00	1.0000E+00	0.0000E+00	4.167000E+01	1.2312E+05	-1.0126E+03	0.0000E+00	0	312
+6.309600E-01	1.0000E+00	0.0000E+00	4.621000E+01	1.2330E+05	-9.8476E+02	0.0000E+00	0	312
+3.981100E-01	1.0000E+00	0.0000E+00	5.089000E+01	1.2333E+05	-9.3342E+02	0.0000E+00	0	312
+2.511900E-01	1.0000E+00	0.0000E+00	5.846000E+01	1.2319E+05	-8.9105E+02	0.0000E+00	0	312
+1.584900E-01	1.0000E+00	0.0000E+00	7.081000E+01	1.2274E+05	-8.5363E+02	0.0000E+00	0	312
+1.000000E-01	1.0000E+00	0.0000E+00	9.060000E+01	1.2232E+05	-8.5056E+02	0.0000E+00	0	312
+6.310000E-02	1.0000E+00	0.0000E+00	1.219500E+02	1.2217E+05	-7.2442E+02	0.0000E+00	0	312
+3.981000E-02	1.0000E+00	0.0000E+00	1.719700E+02	1.2084E+05	-5.7783E+02	0.0000E+00	0	312
+2.512000E-02	1.0000E+00	0.0000E+00	2.513600E+02	1.1665E+05	-5.3764E+02	0.0000E+00	0	312

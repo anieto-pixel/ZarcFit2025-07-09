@@ -1,7 +1,7 @@
 __**ZarcFit: Impedance Analysis of Rock Samples**__
 
 
-ZarcFit is a graphical Python application for analyzing Electric Impadance Spectra (EIS) data from rock samples, developed as a modern reimplementation of Dr. Enkin's original 2014 LabView-based program. The tool is designed to assist geophysicists and materials researchers in modeling experimental impedance spectra using predefined equivqlent electrical circuit analogs.
+ZarcFit is a graphical Python application for analyzing Electric Impedance Spectra (EIS) data from rock samples, developed as a modern reimplementation of Dr. Enkin's original 2014 LabView-based program. The tool is designed to assist geophysicists and materials researchers in modeling experimental impedance spectra using predefined equivqlent electrical circuit analogs.
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 **Features**

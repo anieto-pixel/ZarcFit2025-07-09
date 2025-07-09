@@ -166,7 +166,7 @@ class MainWidget(QWidget):
                                                    )
         self.toggle_model_button_wrapping = self._create_button_toggle_model()
         
-        self.widget_graphs = WidgetGraphs()
+        self.widget_graphs = WidgetGraphs(print_mode = self.config.print_mode_boolean)
         self.freq_slider_wrapping = self._create_slider_and_wrapping()
         
         self.widget_sliders = WidgetSliders(

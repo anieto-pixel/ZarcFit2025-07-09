@@ -50,27 +50,33 @@ class ModelCircuitParent(object):
         return np.array([])
     
     def estimate_rock(self, parameters: dict, freq_array: np.ndarray, impedance: np.ndarray):
+
         """Estimates the rock impedance from experimental data."""
+
         par = parameters
         z_to_substract= []
-        
+
+       
         for f in freq_array:
+
             z_cpee = self._cpe(f, par["Qe"], par["Pef"], par["Pei"])
             zarce = self._parallel(z_cpee, par["Re"])
-            
+
             z_cpeh = self._cpe(f, self.q["Qh"], par["Ph"], par["Ph"])
             zarch = self._parallel(z_cpeh, par["Rh"])
-    
-            z_to_substract.append( zarch + zarce - par["Rh"])
-    
+
+            zl = par["Linf"] * 1j * 2*np.pi*f
+ #           z_to_substract.append( zarch + zarce - par["Rh"])
+
+            z_to_substract.append( zl +zarch + zarce - par["Rh"])
+
         z_to_substract = np.array(z_to_substract)
-        
+
         # Ensure correct shape for subtraction
         if z_to_substract.shape != impedance.shape:
             raise ValueError(f"Shape mismatch: impedance has shape {impedance.shape}, but z_to_subtract has shape {z_to_substract.shape}")
-    
+
         z_estimated_rock = impedance - z_to_substract
-    
         return z_estimated_rock
     
     # ------------------------------------------

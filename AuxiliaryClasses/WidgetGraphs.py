@@ -50,9 +50,13 @@ class ParentGraph(pg.PlotWidget):
     A base PlotWidget that manages 'base' data, 'manual' data, and special markers.
     Subclasses may override _prepare_xy(...) and certain UI aspects.
     """
-    def __init__(self):
+    def __init__(self, print_mode: bool = False):
+        print('parent graph here')
+        print(print_mode)
+        
         super().__init__()
         self.setMouseTracking(True)
+        if print_mode: self._set_print_mode()
         
         self._init_data()
         self._init_ui()
@@ -395,11 +399,30 @@ class ParentGraph(pg.PlotWidget):
         self._coord_label.setFont(QFont('Arial', 5))
         self._coord_label.setPos(mouse_pt.x(), mouse_pt.y())
     """
-
+    
+    def _set_print_mode(self):
+        print('I was called')
+    
+        self.setBackground("w")
+        self.setTitle("", color="k")
+        self.setLabel('bottom', "", color="k")
+        self.setLabel('left', ")", color="k")
+        
+        # Make axis lines and ticks black
+        axis_pen = pg.mkPen(color='k', width=1)
+        
+        # Set axis line and ticks to black
+        #self.getPlotItem().getAxis('bottom').setPen(axis_pen)
+        #self.getPlotItem().getAxis('left').setPen(axis_pen)
+        
+        # Set tick label text to black
+        self.getPlotItem().getAxis('bottom').setTextPen('k')
+        self.getPlotItem().getAxis('left').setTextPen('k')
+        
 
 class PhaseGraph(ParentGraph):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, print_mode=False):
+        super().__init__(print_mode)
         self._autoscale_padding = 0.0
         self.setTitle("Phase (Log Scale of Degrees)")
         self.setLabel('bottom', "log10(Freq[Hz])")
@@ -459,8 +482,8 @@ class PhaseGraph(ParentGraph):
         
                     
 class BodeGraph(ParentGraph):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, print_mode=False):
+        super().__init__(print_mode)
         self.setMouseTracking(True)
         
         self._autoscale_padding = 0.0 
@@ -528,7 +551,7 @@ class ColeColeGraph(ParentGraph):
     Plots real(Z) vs. -imag(Z), plus a secondary manual line.
     """
 
-    def __init__(self):
+    def __init__(self, print_mode=False):
         
         #modifications needed to add the third plot line
         self._secondary_manual_data = {
@@ -540,7 +563,7 @@ class ColeColeGraph(ParentGraph):
         self._secondary_plot = None
         
         # Call to parent constructor
-        super().__init__()
+        super().__init__(print_mode)
         
         # Titles and extra visual elements
         # self._autoscale_padding = 0.1 #uncoment if the padding desired differs from the 0.1 parent default
@@ -638,7 +661,7 @@ class TimeGraph(ParentGraph):
     
     LOG_Y_AXIS = False # False # === Set this to True for a logarithmic Y‑axis (Voltage)
 
-    def __init__(self):
+    def __init__(self, print_mode=False):
         
         self._secondary_manual_data = {
             'freq': np.array([]),
@@ -653,7 +676,7 @@ class TimeGraph(ParentGraph):
         self.mt_text = pg.TextItem(color='w', anchor=(1, 0))
         self.m0_text = pg.TextItem(color='w', anchor=(1, 0))
 
-        super().__init__()
+        super().__init__(print_mode)
         
         # configure title & labels
         self._configure_plot()
@@ -933,15 +956,18 @@ class WidgetGraphs(QWidget):
     A widget with multiple graphs in a split/tabbed layout.
     """
     
-    def __init__(self):
+    def __init__(self, print_mode:bool = False):
         super().__init__()
-        self._init_graphs()
+        
+        print(print_mode)
+        
+        self._init_graphs(print_mode)
         self._init_ui()
 
-    def _init_graphs(self):
-        self._big_graph = ColeColeGraph()
-        self._small_graph_1 = BodeGraph()
-        self._small_graph_2 = PhaseGraph()
+    def _init_graphs(self, print_mode):
+        self._big_graph = ColeColeGraph(print_mode=print_mode)
+        self._small_graph_1 = BodeGraph(print_mode=print_mode)
+        self._small_graph_2 = PhaseGraph(print_mode=print_mode)
         self._tab_graph = TimeGraph()
 
     def _init_ui(self):

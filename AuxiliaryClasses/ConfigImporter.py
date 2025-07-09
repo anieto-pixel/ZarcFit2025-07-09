@@ -39,6 +39,7 @@ class ConfigImporter:
         # Display Preferences
         self.general_font: Optional[int] = None
         self.small_font: Optional[int] = None
+        self.print_mode_boolean = False
 
         # Read and process the configuration file.
         self._read_config_file()
@@ -153,7 +154,19 @@ class ConfigImporter:
             small_font = self.config['GeneralFont'].get('small_font')
             self.general_font = int(font.value if hasattr(font, "value") else font)
             self.small_font = int(small_font.value if hasattr(small_font, "value") else small_font)
+            
+        if 'GraphColours' in self.config:
+            print_mode_boolean = self.config['GraphColours'].get('print_mode')
+            print_mode_boolean = print_mode_boolean.value if hasattr(print_mode_boolean, "value") else print_mode_boolean
+            print_mode_boolean = print_mode_boolean.value.strip().lower() if hasattr(print_mode_boolean, 'value') else str(print_mode_boolean).strip().lower()
 
+            if print_mode_boolean == "true":
+                self.print_mode_boolean = True
+            elif print_mode_boolean == "false":
+                self.print_mode_boolean = False
+            else:
+                print(f"Invalid boolean value for print_mode: {print_mode_boolean}")
+                
     @staticmethod
     def _safe_import(class_name: str):
         slider_classes = {

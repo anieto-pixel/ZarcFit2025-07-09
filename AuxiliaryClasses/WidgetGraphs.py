@@ -51,12 +51,9 @@ class ParentGraph(pg.PlotWidget):
     Subclasses may override _prepare_xy(...) and certain UI aspects.
     """
     def __init__(self, print_mode: bool = False):
-        print('parent graph here')
-        print(print_mode)
         
         super().__init__()
         self.setMouseTracking(True)
-        if print_mode: self._set_print_mode()
         
         self._init_data()
         self._init_ui()
@@ -69,6 +66,8 @@ class ParentGraph(pg.PlotWidget):
 
         # Create plot items once, do not recreate them on every refresh
         self._create_plot_items()
+        if print_mode: self._set_print_mode()
+        
         # Populate them once
         self._refresh_graph()
         # Optionally enable auto-scale
@@ -401,7 +400,6 @@ class ParentGraph(pg.PlotWidget):
     """
     
     def _set_print_mode(self):
-        print('I was called')
     
         self.setBackground("w")
         self.setTitle("", color="k")
@@ -950,6 +948,16 @@ class TimeGraph(ParentGraph):
         )
         self._auto_range_in_progress = False
         
+    def _set_print_mode(self):
+        super()._set_print_mode()
+        
+        self.mx_text = pg.TextItem(color='k', anchor=(1, 0))
+        self.mt_text = pg.TextItem(color='k', anchor=(1, 0))
+        self.m0_text = pg.TextItem(color='k', anchor=(1, 0))
+        
+        self._secondary_dynamic_plot = self.plot(
+            pen=pg.mkPen(color='k', width=2)
+        )
 
 class WidgetGraphs(QWidget):
     """
@@ -968,7 +976,7 @@ class WidgetGraphs(QWidget):
         self._big_graph = ColeColeGraph(print_mode=print_mode)
         self._small_graph_1 = BodeGraph(print_mode=print_mode)
         self._small_graph_2 = PhaseGraph(print_mode=print_mode)
-        self._tab_graph = TimeGraph()
+        self._tab_graph = TimeGraph(print_mode=print_mode)
 
     def _init_ui(self):
         self._tab_widget = QTabWidget()

@@ -968,7 +968,7 @@ class WidgetGraphs(QWidget):
     def __init__(self, print_mode:bool = False):
         super().__init__()
         
-        print(print_mode)
+        print(f"print mode is: {print_mode}")
         
         self._init_graphs(print_mode)
         self._init_ui()

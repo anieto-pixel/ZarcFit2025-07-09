@@ -951,7 +951,7 @@ class TimeGraph(ParentGraph):
         )
         self._auto_range_in_progress = False
         
-    def _set_print_mode(self):
+    def _set_print_mode(self): #rial
         super()._set_print_mode()
         
         self.mx_text = pg.TextItem(color='k', anchor=(1, 0))

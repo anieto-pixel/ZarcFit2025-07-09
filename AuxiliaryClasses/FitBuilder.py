@@ -102,8 +102,9 @@ class FitBuilder(QObject):
     
             if self.gaussian_prior:
                 prior_res = self._compute_gaussian_prior(x_free, x0, lower_bounds_scaled, upper_bounds_scaled, prior_weight)
-                invalid_penalty = self._compute_invalid_guess_penalty(full_params, prior_weight)
-                model_residual = np.concatenate([model_residual, prior_res, invalid_penalty])
+                #invalid_penalty = self._compute_invalid_guess_penalty(full_params, prior_weight)
+                #model_residual = np.concatenate([model_residual, prior_res, invalid_penalty])
+                model_residual = np.concatenate([model_residual, prior_res])
             
             return model_residual
 

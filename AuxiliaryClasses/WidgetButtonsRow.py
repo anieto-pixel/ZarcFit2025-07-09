@@ -39,8 +39,8 @@ class WidgetButtonsRow(QWidget):
 
         # Create checkable buttons using DualLabelButton.
         self.f9_button: DualLabelButton = DualLabelButton("F9 +Rinf", "F9 -Rinf")
-        self.f10_button: DualLabelButton = DualLabelButton("F10 Tail Right", "F11 Tail Left")
-        self.f11_button: DualLabelButton = DualLabelButton("F11 Damping", "F12 Constrains On")
+        self.f10_button: DualLabelButton = DualLabelButton("F10 Tail Right", "F10 Tail Left")
+        self.f11_button: DualLabelButton = DualLabelButton("F11 Damping", "F11 Damping On")
 
         # Create additional regular buttons.
         self.f12_button: DualLabelButton = QPushButton("F12 Print Headers")

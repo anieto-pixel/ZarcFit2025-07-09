@@ -656,6 +656,10 @@ class ColeColeGraph(ParentGraph):
                 padding= self._autoscale_padding
             )
             self._auto_range_in_progress = False
+            
+    def _set_print_mode(self): #rial
+        super()._set_print_mode()
+        self.showGrid(x=False, y=False)
 
 
 class TimeGraph(ParentGraph):
@@ -951,7 +955,7 @@ class TimeGraph(ParentGraph):
         )
         self._auto_range_in_progress = False
         
-    def _set_print_mode(self): #rial
+    def _set_print_mode(self): 
         super()._set_print_mode()
         
         self.mx_text = pg.TextItem(color='k', anchor=(1, 0))
@@ -961,6 +965,7 @@ class TimeGraph(ParentGraph):
         self._secondary_dynamic_plot = self.plot(
             pen=pg.mkPen(color='k', width=2)
         )
+        self.showGrid(x=False, y=False)
 
 class WidgetGraphs(QWidget):
     """

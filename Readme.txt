@@ -1,7 +1,7 @@
 __**ZarcFit: Impedance Analysis of Rock Samples**__
 
 
-ZarcFit is a graphical Python application for analyzing impedance data from rock samples, developed as a modern reimplementation of Dr. Enkin's original 2014 LabView-based program. The tool is designed to assist geophysicists and materials researchers in modeling experimental impedance spectra using predefined electrical circuit analogs.
+ZarcFit is a graphical Python application for analyzing Electric Impedance Spectra (EIS) data from rock samples, developed as a modern reimplementation of Dr. Enkin's original 2014 LabView-based program. The tool is designed to assist geophysicists and materials researchers in modeling experimental impedance spectra using predefined equivqlent electrical circuit analogs.
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 **Features**
@@ -10,19 +10,19 @@ ZarcFit is a graphical Python application for analyzing impedance data from rock
 *Circuit Modeling*: Implements two equivalent circuit models to simulate frequency-dependent impedance of geological materials.
 
 *Interactive Visualization*:
-	- Plots experimental data (green) vs. modeled curves (blue).
+	- Plots experimental data (green) vs. modeled curves (cyan).
   	- Time-domain transformation is also shown.
 
 *Real-Time Parameter Control*:
   	- Sliders (with color-coded mapping) allow tuning model parameters interactively.
   	- Supports parameter bounds, enabling/disabling sliders, and value reset.
-	- Curve fitting of impedance spectrum with respect to the model parameters.
+	- Least Squares Curve fitting of impedance spectrum with respect to the model parameters.
 
 *Configurable Input/Output*:
   	- Uses config.ini to load default parameter ranges, values, and output variable preferences.
   	- Automatically logs results to a CSV file.
 
-*Keyboard Shortcuts*: F1–F12 keys perform fitting, navigation, toggling options, and more. Space bar prints the heading
+*Keyboard Shortcuts*: F1–F12 keys perform fitting, navigation, toggling options, and more.
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
 **Project Structure**
@@ -52,7 +52,7 @@ ZarcFit/
 
 **Circuit Models**
 
-Two theoretical impedance models are embedded, based on Dr. Enkin’s specifications. These consist of combinations of resistors, capacitors, and constant phase elements, each representing specific geological or electrode behaviors. The program allows to easily code more du classes to the circuit model class, if desired.
+Two equivalent electric circuit models are embedded, based on Dr. Enkin’s specifications. These consist of combinations of resistors, capacitors, and constant phase elements, each representing specific geological or electrode behaviors. The program allows to easily code more classes to the circuit model class, if desired.
 
 - The different Models are coded in ModelCircuit.py.
 - Circuit structure is visualized separately (see circuit_models.jpg).
@@ -100,6 +100,8 @@ Other Sections:
 - Python 3.8+
 - PyQt5
 - NumPy
+- SciPy
+- pandas
 
 *Launch*
 python Main.py
@@ -124,7 +126,7 @@ F8        | Reset parameters to default
 F9        | Toggle negative Rinf for samples with top frequency imaginary impedance
 F10       | Toggle Pei (external impedance phase)
 F11       | Fit Damping
-F12       | Print variable list to the output file
+F12       | Print variable list header to the output file
 PgUp/Down | Adjust frequency range ends
 Ctrl+Z    | Undo last automatic fit. Resets parameters to the initial guess
 ----------------------------------------------------------------------------------------------------------------------------------------------

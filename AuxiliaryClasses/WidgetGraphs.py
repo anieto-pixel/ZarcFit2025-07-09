@@ -416,6 +416,7 @@ class ParentGraph(pg.PlotWidget):
         # Set tick label text to black
         self.getPlotItem().getAxis('bottom').setTextPen('k')
         self.getPlotItem().getAxis('left').setTextPen('k')
+        self.showGrid(x=False, y=False)
         
 
 class PhaseGraph(ParentGraph):

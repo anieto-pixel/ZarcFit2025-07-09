@@ -1,4 +1,6 @@
 """
+This is the version I expet to see during the trial
+
 Created on Mon Dec 30 08:27:11 2024
 
 Graphs for impedance data visualization:

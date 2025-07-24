@@ -28,25 +28,25 @@ class WidgetButtonsRow(QWidget):
         self.font = font # Base font size at 100%
 
         # Create regular (non-checkable) buttons.
-        self.f1_button: QPushButton = QPushButton("F1. Fit Cole")
-        self.f2_button: QPushButton = QPushButton("F2 Fit Bode")
-        self.f3_button: QPushButton = QPushButton("F3 AllFreqs")
-        self.f4_button: QPushButton = QPushButton("F4 Save plot")
-        self.f5_button: QPushButton = QPushButton("F5 File Back")
-        self.f6_button: QPushButton = QPushButton("F6 File Forth")
-        self.f7_button: QPushButton = QPushButton("F7 Recover")
-        self.f8_button: QPushButton = QPushButton("F8 Sliders Default")
+        self.f1_button: QPushButton = QPushButton("F1: Fit Cole")
+        self.f2_button: QPushButton = QPushButton("F2: Fit Bode")
+        self.f3_button: QPushButton = QPushButton("F3: AllFreqs")
+        self.f4_button: QPushButton = QPushButton("F4: Save plot")
+        self.f5_button: QPushButton = QPushButton("F5: File Back")
+        self.f6_button: QPushButton = QPushButton("F6: File Forth")
+        self.f7_button: QPushButton = QPushButton("F7: Recover")
+        self.f8_button: QPushButton = QPushButton("F8: Sliders Default")
 
         # Create checkable buttons using DualLabelButton.
-        self.f9_button: DualLabelButton = DualLabelButton("F9 +Rinf", "F9 -Rinf")
-        self.f10_button: DualLabelButton = DualLabelButton("F10 Tail Right", "F10 Tail Left")
-        self.f11_button: DualLabelButton = DualLabelButton("F11 Damping", "F11 Damping On")
+        self.f9_button: DualLabelButton = DualLabelButton("F9: +Rinf", "F9: -Rinf")
+        self.f10_button: DualLabelButton = DualLabelButton("F10: Tail Right", "F10: Tail Left")
+        self.f11_button: DualLabelButton = DualLabelButton("F11: Damping", "F11: Damping On")
 
         # Create additional regular buttons.
-        self.f12_button: DualLabelButton = QPushButton("F12 Print Headers")
-        self.fup_button: QPushButton = QPushButton("PUp. Min Freq")
-        self.fdown_button: QPushButton = QPushButton("PDown. Max freq")
-        self.ctrlz_button: QPushButton = QPushButton("Ctrl+Z Undo Fit")
+        self.f12_button: DualLabelButton = QPushButton("F12: Print Headers")
+        self.fup_button: QPushButton = QPushButton("PUp: Min Freq")
+        self.fdown_button: QPushButton = QPushButton("PDown: Max freq")
+        self.ctrlz_button: QPushButton = QPushButton("Ctrl+Z: Undo Fit")
 
         # Group all buttons into a list for easy iteration.
         self._buttons_list = [

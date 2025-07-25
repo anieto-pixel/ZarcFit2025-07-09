@@ -30,7 +30,7 @@ class WidgetButtonsRow(QWidget):
         # Create regular (non-checkable) buttons.
         self.f1_button: QPushButton = QPushButton("F1: Fit Cole")
         self.f2_button: QPushButton = QPushButton("F2: Fit Bode")
-        self.f3_button: QPushButton = QPushButton("F3: AllFreqs")
+        self.f3_button: QPushButton = QPushButton("F3: All Freqs")
         self.f4_button: QPushButton = QPushButton("F4: Save plot")
         self.f5_button: QPushButton = QPushButton("F5: File Back")
         self.f6_button: QPushButton = QPushButton("F6: File Forth")

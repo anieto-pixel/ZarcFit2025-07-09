@@ -157,7 +157,9 @@ class FitBuilder(QObject):
         """
         weight = 1
         for key in ["Ph", "Pm", "Pl", "Pef"]:
-            weight *= 1 + self.base_weight * np.exp(self.exp_weight * params[key])
+            if key in params:
+                weight *= 1 + self.base_weight * np.exp(self.exp_weight * params[key])
+            else: print(f"Expected parameter {key} not found: FitBuilder._weight_function")
         return weight
                  
     def _compute_invalid_guess_penalty(self, params: dict, prior_weight: float) -> np.ndarray:
@@ -184,10 +186,13 @@ class FitBuilder(QObject):
         Test validity criteria: Fh >= Fm >= Fl.
         Returns positive deviations if invalid, zeros otherwise.
         """
-        return np.array([
-            max(0.0, params["Fm"] - params["Fh"]),
-            max(0.0, params["Fl"] - params["Fm"])
-        ])
+        if all(k in params for k in ("Fh", "Fm", "Fl")):
+            return np.array([
+                max(0.0, params["Fm"] - params["Fh"]),
+                max(0.0, params["Fl"] - params["Fm"])
+            ])
+        else:
+            return np.array([0.0,0.0])
     
     def _build_bounds(self, free_keys: list) -> (np.ndarray, np.ndarray):
         """

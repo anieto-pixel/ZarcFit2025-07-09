@@ -449,7 +449,7 @@ class WidgetInputFile(QWidget):
                 f for f in os.listdir(self._folder_path)
                 if f.lower().endswith(supported_ext)
             ]
-            self._files = sorted(self._files)
+            self._files = sorted(self._files, key=str.casefold)
             if not skip_extract_default_file:
                 self._extract_default_file_from_folder()
             

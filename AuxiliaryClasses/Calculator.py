@@ -13,12 +13,6 @@ from .ModelCircuits import ModelCircuitParent, ModelCircuitParallel, ModelCircui
 from .TimeDomainBuilder import TimeDomainBuilder
 from .FitBuilder import FitBuilder
 
-# Bounds are scaled. Need to add padding for 0 values, handle Qei,
-# and implement a way of making Rinf negative.
-
-#--------------------------------NOTE TO RANDY-------------------------------------------:
-# The calculations related to the circuit models have been moved to the class "models"
-#--------------------------------------------------------------------------------------
 
 @dataclass
 class CalculationResult:

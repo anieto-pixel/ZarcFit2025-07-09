@@ -1,6 +1,4 @@
 """
-This is the version I expet to see during the trial
-
 Created on Mon Dec 30 08:27:11 2024
 
 Graphs for impedance data visualization:
@@ -235,14 +233,14 @@ class ParentGraph(pg.PlotWidget):
         """
         Create the static and dynamic plot items once. Do not re-create them every time.
         """
-        # Static plot item (base data)
+        # Static plot item (observed or base data)
         self._static_plot = self.plot(
             pen='g',  # green line
             symbol='o',
             symbolSize=6,
             symbolBrush='g', symbolPen='g'
         )
-        # Dynamic plot item (manual data)
+        # Dynamic plot item (model or manual data)
         self._dynamic_plot = self.plot(
             pen=pg.mkPen(color='c', width=2),
             symbol='o',
@@ -439,10 +437,10 @@ class PhaseGraph(ParentGraph):
     def _apply_auto_scale(self):
         """
         Auto-scales the view based on the static (base) plot data,
-        but clamps the X range to [-1, 6] to ensure edge ticks are visible.
+        but clamps the X range to [-2, 6] to ensure edge ticks are visible.
         """
         # Clamp x-range to fixed hard bounds
-        x_min =-1.2
+        x_min =-2.2
         x_max = 6.08
         y_min =-1.2
         y_max = 2.4
@@ -522,10 +520,10 @@ class BodeGraph(ParentGraph):
     def _apply_auto_scale(self):
         """
         Auto-scales the view based on the static (base) plot data,
-        but clamps the X range to [-1, 6] to ensure edge ticks are visible.
+        but clamps the X range to [-2, 6] to ensure edge ticks are visible.
         """
         # Clamp x-range to fixed hard bounds
-        x_min =-1.2
+        x_min =-2.2
         x_max = 6.08
         y_min = 2.8
         y_max = 7.4

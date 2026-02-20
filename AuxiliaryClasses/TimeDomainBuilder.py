@@ -15,9 +15,7 @@ from .ModelCircuits import ModelCircuitParent, ModelCircuitParallel, ModelCircui
 ###############################################################################
 # v/t class
 ###############################################################################
-#3ensure that exp dat ahas the right keywords, else have a catch or something
-#TODO decide if using modelcircuit from constructor and stop passing it in methods
-#or delete the modelcircuit from constructor
+
 class TimeDomainBuilder(QObject):
     
     def __init__(self, model_circuit) -> None:
@@ -25,6 +23,8 @@ class TimeDomainBuilder(QObject):
         super().__init__() 
         self.N = 2 ** 14     #number of frequencies, power of 2
         self.T = 4           # Time range for Fourier Transform 
+#        self.N = 2 ** 24     #number of frequencies, power of 2
+#        self.T = 50           # Time range for Fourier Transform 
         self.model_circuit = model_circuit  
         self._integral_variables = {}
         
@@ -56,7 +56,8 @@ class TimeDomainBuilder(QObject):
         
         t, volt_down, volt_up=self._fourier_transform_pulse(z_complex, dt)
         
-        ################ experimental portion.  Check IFFT
+        ################ experimental portion, for producing the step response from delta response 
+        ###In principle, multiplying by j*pi should be equivalent to integration the delta function response
         # freq_even_stepresponse=freq_even*2j*np.pi
         # z_complex_stepresponse = z_complex / freq_even_stepresponse
         # t, volt_down, volt_up=self._fourier_transform_response(z_complex_stepresponse, dt) 
@@ -175,7 +176,9 @@ class TimeDomainBuilder(QObject):
         """
         Build the single-sided array for IRFFT and perform a real IFFT.
         """       
-        b, a = sig.butter(2, 0.45) 
+        b, a = sig.butter(2, 0.45)    
+        #second-order Butterworth low-pass filter with a normalized cutoff frequency of 0.45, in order to remove high-frequency artifacts
+        
         z_inversefft = np.fft.irfft(z_complex)       #to transform the impedance data from the freq domain to the time domain.
                    #largest value is 0.28       
         z_inversefft = sig.filtfilt(b, a, z_inversefft)   #Applies filter
@@ -186,7 +189,7 @@ class TimeDomainBuilder(QObject):
         time_to_plot_in_seconds=2
         
         index = np.searchsorted(t, time_to_plot_in_seconds, side="right")
-        volt_down = volt_up[index]-volt_up
+        volt_down = volt_up[index]-volt_up  #subract step up response from response(2s) for step down
         
         return t, volt_down, volt_up
 

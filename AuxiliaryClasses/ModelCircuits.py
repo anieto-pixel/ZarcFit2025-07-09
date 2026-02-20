@@ -51,7 +51,7 @@ class ModelCircuitParent(object):
     
     def estimate_rock(self, parameters: dict, freq_array: np.ndarray, impedance: np.ndarray):
 
-        """Estimates the rock impedance from experimental data."""
+        """Estimates the rock impedance from experimental data. Observed impedance minus high and low freq fit"""
 
         par = parameters
         z_to_substract= []
@@ -134,6 +134,7 @@ class ModelCircuitParent(object):
         if f0 <= 0:
             raise ValueError("Resonant frequency f0 must be positive.")
         result = 1.0 / (r * ((2.0 * np.pi * f0) ** p))
+        # 2pi f0 = omega0 = (RQ)^(-1/p) 
         
         return result
 

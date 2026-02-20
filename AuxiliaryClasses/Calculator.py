@@ -19,12 +19,12 @@ class CalculationResult:
     """
     Container for main and special impedance data.
     """
-    main_freq: np.ndarray = None  # The frequency array used for the main curve
-    main_z_real: np.ndarray = None
+    main_freq: np.ndarray = None  # The frequency array used for the Zarc model curve
+    main_z_real: np.ndarray = None   # Model impedance values
     main_z_imag: np.ndarray = None
     
-    rock_z_real: np.ndarray = None
-    rock_z_imag: np.ndarray = None
+    rock_z_real: np.ndarray = None  # Impedance observations minus high and low frequency fits
+    rock_z_imag: np.ndarray = None  # to model impedance of the rock alone
 
     special_freq: np.ndarray = None  # The 3 special frequencies
     special_z_real: np.ndarray = None
@@ -76,7 +76,7 @@ class Calculator(QObject):
         self._model_circuit.negative_rinf = state
 
     def set_gaussian_prior(self, state: bool) -> None:
-        """Enable or disable the Gaussian prior for model fitting."""
+        """Enable or disable the Gaussian prior for damped model fitting."""
         
         self.gaussian_prior = state
         self.fit_builder.gaussian_prior = state
@@ -90,6 +90,7 @@ class Calculator(QObject):
     def set_disabled_variables(self, key: str, disabled: bool) -> None:
         """
         Enable or disable a parameter for the fit based on its key.
+        Disabled parameters have their value box coloured dark grey.
         """
         self.fit_builder.set_disabled_variables(key, disabled)
 
@@ -137,13 +138,13 @@ class Calculator(QObject):
         print(f"Using {self._model_circuit.name}")
 
     def fit_model_cole(self, initial_params: dict) -> dict:
-        """Fit the model using the Cole cost function."""
+        """F1: Fit the model using the Cole cost function."""
         
         prior_weight = 10 ** 6
         return self.fit_builder.fit_model_cole(initial_params, prior_weight)
 
     def fit_model_bode(self, initial_params: dict) -> dict:
-        """Fit the model using the Bode cost function."""
+        """F2: Fit the model using the Bode cost function."""
                 
         prior_weight = 400
         return self.fit_builder.fit_model_bode(initial_params, prior_weight)
@@ -162,6 +163,7 @@ class Calculator(QObject):
         z_experimental = self._experiment_data["Z_real"].copy() + 1j * self._experiment_data["Z_imag"].copy()
         
         # Calculate Z for the full model, and for the rock alone.
+        # Rock alone = experimental observations minus high and low freq fit responses
         z, _ = self._model_circuit.run_model(params, freq_array)
         z_real, z_imag = z.real, z.imag
         
@@ -207,13 +209,13 @@ class Calculator(QObject):
         """
         Transform experimental data to time domain.
         """
-        #todo Do nto send experiemtn data, send extrapolated rock
+        #todo Produce time domain from interpolation of observed impedance rather than from the rock model
         
         return self.time_domain_builder.transform_to_time_domain(self._experiment_data)
     
     """
     def transform_to_time_domain(self, parameters: dict):
-        #todo Do nto send experiemtn data, send extrapolated rock
+        #todo Produce time domain from interpolation of observed impedance rather than from the rock model
         freq_array = self._experiment_data['freq']
         impedance = self._experiment_data['Z_real'] + 1j*self._experiment_data['Z_imag']
         estimate_rock_z= self.circuit.estimate_rock(parameters, freq_array, impedance)
@@ -229,7 +231,7 @@ class Calculator(QObject):
     # Private Methods
     def _calculate_special_frequencies(self, params: dict):
 
-        #enkin 2025-05-07  Set params without influence of electrode
+        #Set params without influence of electrode
         params_no_electrode = params.copy()
         params_no_electrode['Re']=1E8
         params_no_electrode['Qe']=1E2

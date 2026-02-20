@@ -15,7 +15,7 @@ from .ModelCircuits import ModelCircuitParent, ModelCircuitParallel, ModelCircui
 class FitBuilder(QObject):
     """
     This class replicates the circuit calculation by evaluating formulas from
-    config.ini. It also calculates secondary variables that were previously in Main.
+    config.ini. It also calculates secondary variables for presentation and output
     """
     
     model_manual_values = pyqtSignal(dict)
@@ -31,9 +31,9 @@ class FitBuilder(QObject):
         self.gaussian_prior = False
         self._previous_fit_params = {}
         
-        #Base weigthing variables
-        self.base_weight =3 #Randy changes this value to change the weight against low p
-        self.exp_weight =-15
+        #CPE exponent p weigthing variables
+        self.base_weight =3 #penalty weight 1+3*exp(-15p)
+        self.exp_weight =-15# at p=0.3, the weight misfit increases 3%; 15% at p=0.2; and 67% at p=0.1
         
     # Public Methods (Interface Unchanged)
     def set_bounds(self, slider_configurations: dict) -> None:
@@ -41,10 +41,10 @@ class FitBuilder(QObject):
         Set the lower and upper bounds for parameters based on slider configurations.
         """
         for key, config in slider_configurations.items():
-            if "Power" in str(config[0]):
+            if "Power" in str(config[0]):   #for logarithmic variables:
                 self.lower_bounds[key] = 10 ** config[1]
                 self.upper_bounds[key] = 10 ** config[2]
-            else:
+            else:                           #for linear variables:
                 self.lower_bounds[key] = config[1]
                 self.upper_bounds[key] = config[2]
                 
@@ -66,11 +66,11 @@ class FitBuilder(QObject):
         self._model_circuit = model_circuit
             
     def fit_model_cole(self, initial_params: dict, prior_weight: float) -> dict:
-        """Fit the model using the Cole cost function."""
+        """F1: Fit the model using the Cole cost function."""
         return self.fit_model(self._residual_cole, initial_params, prior_weight)
 
     def fit_model_bode(self, initial_params: dict, prior_weight: float) -> dict:
-        """Fit the model using the Bode cost function."""
+        """F2: Fit the model using the Bode cost function."""
         return self.fit_model(self._residual_bode, initial_params, prior_weight)
     
     def recover_previous_fit(self):
@@ -108,6 +108,7 @@ class FitBuilder(QObject):
             
             return model_residual
 
+        #run the optimization routine scipy.optimize.least-squares 
         result = opt.least_squares(
             _residual_wrapper,
             x0=x0,
@@ -118,7 +119,7 @@ class FitBuilder(QObject):
         best_fit_free = self._descale_params(free_keys, result.x)
         best_fit = {**locked_params, **best_fit_free}
         
-        if 'Pei' in best_fit.keys(): #special case angle Pei
+        if 'Pei' in best_fit.keys(): #special case angle Pei mod 4 between -1 and 3
             best_fit['Pei'] = (best_fit['Pei']+1)%4. - 1
         
         self.model_manual_values.emit(best_fit)
@@ -136,7 +137,7 @@ class FitBuilder(QObject):
         return np.concatenate([(z_real - exp_real) * weight, (z_imag - exp_imag) * weight])
 
     def _residual_bode(self, params: dict) -> np.ndarray:
-        """Return the residual vector for the Bode model."""
+        """Return the residual vector for the Bode model. Note: equal weight for log(magnitude)+log(phase)"""
         freq_array = self._experiment_data["freq"]
         z, _ = self._model_circuit.run_model(params, freq_array)
         z_real, z_imag = z.real, z.imag
@@ -158,6 +159,7 @@ class FitBuilder(QObject):
         weight = 1
         for key in ["Ph", "Pm", "Pl", "Pef"]:
             if key in params:
+                #penalty weight 1+3*exp(-15p)
                 weight *= 1 + self.base_weight * np.exp(self.exp_weight * params[key])
             else: print(f"Expected parameter {key} not found: FitBuilder._weight_function")
         return weight
@@ -165,6 +167,7 @@ class FitBuilder(QObject):
     def _compute_invalid_guess_penalty(self, params: dict, prior_weight: float) -> np.ndarray:
         """
         Returns the penalty array if the guess is invalid, otherwise zeros.
+        NOT CURRENTLY APPLIED!
         """
         arbitrary_scaling = 1e4
         deviation = self._invalid_guess(params)
@@ -185,6 +188,7 @@ class FitBuilder(QObject):
         """
         Test validity criteria: Fh >= Fm >= Fl.
         Returns positive deviations if invalid, zeros otherwise.
+        NOT CURRENTLY APPLIED!
         """
         if all(k in params for k in ("Fh", "Fm", "Fl")):
             return np.array([
@@ -207,6 +211,7 @@ class FitBuilder(QObject):
     def _scale_params(keys: list, params: dict) -> np.ndarray:
         """
         Convert parameter values into a scaled vector for optimization.
+        All parameters scaled to ~unit variations.  Log parameters or 10*Linear parameters
         """
         scaled = []
         for key in keys:

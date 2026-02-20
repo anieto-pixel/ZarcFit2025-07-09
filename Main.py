@@ -120,6 +120,7 @@ class MainWidget(QWidget):
         return middle_widget
 
     def _build_bottom_area(self) -> QWidget:
+        """Builds the bottom area with a parameter sliders and outputs."""
         bottom_half_layout = QHBoxLayout()
         bottom_half_layout.setContentsMargins(0,0,0,0)
         bottom_half_layout.setSpacing(0)
@@ -373,7 +374,7 @@ class MainWidget(QWidget):
             len(freq) == 0 or len(Z_real) == 0 or len(Z_imag) == 0):
             
             self.widget_graphs.reset_default_values()
-            print("MainWidget: Received empty or invalid data. Skipping update.")
+            print("MainWidget: Received empty or invalid data. Choose correct data file type.")
             return
         
         self.file_data.update(freq=freq, Z_real=Z_real, Z_imag=Z_imag)
@@ -392,7 +393,7 @@ class MainWidget(QWidget):
         #self.widget_at_bottom.clear_text_box()
 
     def _handle_recover_file_values(self):
-        """Recovers file values from output. Updates sliders position."""
+        """F7: Recovers file values from output. Updates sliders position."""
         
         head = self.widget_input_file.get_current_file_name()
         dictionary = self.widget_output_file.find_row_in_file(head)
@@ -406,6 +407,7 @@ class MainWidget(QWidget):
             self.v_sliders[key] = float(dictionary[key])
             
         if 'Rinf' in self.v_sliders:
+            #f9_button True for negative Rinf, False for positive Rinf
             if self.v_sliders['Rinf'] < 0:
                 self.v_sliders['Rinf']=abs(self.v_sliders['Rinf'])
                 self.widget_buttons.f9_button.setChecked(True)  # Toggle ON
@@ -413,6 +415,7 @@ class MainWidget(QWidget):
                 self.widget_buttons.f9_button.setChecked(False)  # Toggle OFF
             
         if 'Pei' in self.v_sliders:
+            #keep Pei mod 4 between -1 and 3.  Phase Angle = Pei*pi/2
             self.v_sliders['Pei'] = (self.v_sliders['Pei']+1)%4. - 1.
             
         self.widget_sliders.set_all_variables(self.v_sliders)
@@ -450,7 +453,7 @@ class MainWidget(QWidget):
 
     def _handle_frequency_update(self, bottom_i, top_i, f_max, f_min):
         """
-        Handles frequency filtering based on freq_slider positions.
+        Handles High and Low frequency limits based on freq_slider positions.
         """
         
         freq_filtered = self.file_data['freq'][bottom_i: top_i + 1]
@@ -471,7 +474,7 @@ class MainWidget(QWidget):
 
     def _handle_set_allfreqs(self):
         """
-        Resets the frequency slider to default,
+        F3: Resets the frequency slider to default,
         reinitializes the model with current file data,
         and updates front graphs.
         """
@@ -487,20 +490,20 @@ class MainWidget(QWidget):
 
     def _handle_set_default(self):
         """
-        Resets sliders to their default values and refreshes frequency settings.
+        F8: Resets sliders to their default values and refreshes frequency settings.
         """
         self.widget_sliders.set_to_default_values() 
         self.widget_sliders.set_to_default_disabled() 
         #self._handle_set_allfreqs()
 
     def _handle_rinf_negative(self, state):
-        """Handles toggling for Rinf being negative."""
+        """F9: Handles toggling for Rinf being negative."""
         self.calculator.set_rinf_negative(state)
         self.widget_sliders.get_slider('Rinf').toggle_orange_effect(state)
         self.calculator.run_model_manual(self.v_sliders)
 
     def _handle_toggle_pei(self, state):
-        """Handles toggling for Pei value."""
+        """F10: Handles toggling for Pei value."""
         
         if state:
             self.widget_sliders.get_slider('Pei').set_value_exact(2.0)
@@ -525,7 +528,7 @@ class MainWidget(QWidget):
 
     def _print_model_parameters(self):
         """
-        Called when Print is requested.
+        F4: Called when Print is requested.
         Merges slider values, timestamp, and file information before writing output.
         """
         date = {'date/time': datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
@@ -575,7 +578,7 @@ if __name__ == "__main__":
     window = QMainWindow()
     main_widget = MainWidget(config_file)
     window.setCentralWidget(main_widget)
-    window.setWindowTitle("ZarcFit 5.6")
+    window.setWindowTitle("ZarcFit 5.2.6")
     
     window.setGeometry(0, 0, 1500, 900)  # Set the initial size and position (x=0, y=0, width=800, height=600)
 
